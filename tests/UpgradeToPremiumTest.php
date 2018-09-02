@@ -3,7 +3,6 @@
 namespace PhpMentors\BookStore;
 
 use DateTimeImmutable;
-use Exception;
 use PhpMentors\BookStore\Member\Upgrade\Entity\Application;
 use PhpMentors\BookStore\Member\Upgrade\Entity\OrdinaryMember;
 use PhpMentors\BookStore\Member\Upgrade\Entity\Upgrade;
@@ -62,6 +61,9 @@ class UpgradeToPremiumTest extends TestCase
             ->method('isSatisfiedBy')
             ->with($member, $datetime)
             ->willReturn(false);
+
+        $this->upgradeRepository->expects($this->never())
+            ->method('save');
 
         $this->expectException(NotRegularException::class);
 
